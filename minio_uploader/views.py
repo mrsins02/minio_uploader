@@ -27,12 +27,11 @@ class MinioUplaodView(View):
             # getting new object
             media = Media.objects.last()
 
+            # upload object to minio
             bucket = media.bucket
             object_extention = os.path.splitext(media.media.path)[1]
             object_name = f"{media.media_saved_name}{object_extention}"
             object_path = media.media.path
-
-            # upload to Minio
             uploader(bucket=bucket, object_name=object_name, object_path=object_path)
 
             return render(
